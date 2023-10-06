@@ -1,0 +1,29 @@
+parameters: {}
+environment: {}
+packages:
+    - name: prod
+      shared: false
+      environment: {}
+      parameters: {}
+      annotations: {}
+      functions:
+        - name: snapshot
+          triggers:
+            - name: test
+              sourceType: scheduler
+              sourceDetails:
+                cron: "*/15 * * * *"
+                withBody:
+                  tag: 'snapshot'
+                  store_snapshot: '4'
+          binary: false
+          main: ""
+          runtime: python:3.11
+          web: true
+          webSecure: false
+          parameters: {}
+          environment: {}
+          annotations: {}
+          limits:
+            memory: 512
+            timeout: 30000
